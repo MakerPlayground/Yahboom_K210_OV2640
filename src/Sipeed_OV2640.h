@@ -47,6 +47,18 @@ public:
     bool setFrameSize(framesize_t frameSize);
     virtual bool run(bool run);
     virtual int id();
+    /** 
+     * To retreive image in blocking mode use: 
+     *    camera.snapshot()
+     *
+     * To retreive image in non-blocking mode use: 
+     *    camera.startSnapshot();
+     *    while (!camera.isFrameReady()) { // do something }
+     *    camera.retrieveFrame();
+     */
+    void startSnapshot();
+    bool isFrameReady();
+    void retrieveFrame();
     /**
      * @return pixels 
      *         If pixels format is RGB565: return RGB565 pixels with every uint16_t one pixel, e.g. RED: 0xF800

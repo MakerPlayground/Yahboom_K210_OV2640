@@ -737,6 +737,21 @@ int Sipeed_OV2640::id()
     return _id;
 }
 
+void Sipeed_OV2640::startSnapshot()
+{
+    g_dvp_finish_flag = 0;
+}
+
+bool Sipeed_OV2640::isFrameReady()
+{
+    return g_dvp_finish_flag;
+}
+
+void Sipeed_OV2640::retrieveFrame()
+{
+    reverse_u32pixel((uint32_t*)_dataBuffer, _width*_height/2);
+}
+
 /**
  * @return pixels 
  *         If pixels format is RGB565: return RGB565 pixels with every uint16_t one pixel, e.g. RED: 0xF800
@@ -1532,7 +1547,6 @@ int Sipeed_OV2640::reverse_u32pixel(uint32_t* addr,uint32_t length)
   
   return 0;
 }
-
 
 int Sipeed_OV2640::sensor_snapshot( )
 {	
